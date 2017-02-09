@@ -5,6 +5,10 @@ using Newtonsoft.Json.Converters;
 
 namespace HelloClassroom.Models
 {
+	/// <summary>
+	/// JSON serializable class which holds a payload to be sent 
+	/// to the IoT app.
+	/// </summary>
 	public class DeviceCommand
 	{
 		[JsonConverter(typeof(StringEnumConverter))]
