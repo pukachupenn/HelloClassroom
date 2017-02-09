@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Collections.Generic;
 using HelloClassroom.Commands;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace HelloClassroom.Models
 {
 	public class DeviceCommand
 	{
+		[JsonConverter(typeof(StringEnumConverter))]
 		public CommandType Type { get; set; }
 
-		public Dictionary<string, string> Data { get; set; }
+		public Dictionary<string, object> Data { get; set; }
 	}
 }

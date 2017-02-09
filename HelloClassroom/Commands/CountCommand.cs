@@ -10,13 +10,8 @@ namespace HelloClassroom.Commands
 		private int _fromCount;
 		private int _toCount;
 
-		private void ParseJson()
+		public CountCommand(string jsonData) : base(jsonData)
 		{
-			// TODO: Parse the LUIS payload here
-			//var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(this.jsonData);
-
-			_fromCount = 0;
-			_toCount = 15;
 		}
 
 		public override Task ProcessCommand()
@@ -30,18 +25,23 @@ namespace HelloClassroom.Commands
 			DeviceCommand command = new DeviceCommand()
 			{
 				Type = CommandType.Count,
-				Data = new Dictionary<string, string>
+				Data = new Dictionary<string, object>
 				{
-					["from"] = _fromCount.ToString(),
-					["to"] = _toCount.ToString(),
+					["from"] = _fromCount,
+					["to"] = _toCount,
 				}
 			};
 
 			return command;
 		}
 
-		public CountCommand(string jsonData) : base(jsonData)
+		private void ParseJson()
 		{
+			// TODO: Parse the LUIS payload here
+			//var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(this.jsonData);
+
+			_fromCount = 0;
+			_toCount = 15;
 		}
 	}
 }
