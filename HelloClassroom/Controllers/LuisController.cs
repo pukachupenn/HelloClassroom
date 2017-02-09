@@ -3,36 +3,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using HelloClassroom.Commands;
 using Newtonsoft.Json;
 
 namespace HelloClassroom.Controllers
 {
-    public class LuisController : ApiController
+	[RoutePrefix("api/luis")]
+	public class LuisController : ApiController
     {
-        // GET: api/Luis
-        public IEnumerable<string> Get()
+		// GET: api/Luis/5
+		[HttpGet]
+		[Route("{commandName}", Name = "Get")]
+		public string Get(string commandName)
         {
-            return new string[] { "value1", "value2" };
+			CommandBase command = null;
+
+			if (string.Equals(commandName, "count", StringComparison.OrdinalIgnoreCase))
+			{
+				command = new CountCommand("foo");
+			}
+			else if (string.Equals(commandName, "location", StringComparison.OrdinalIgnoreCase))
+			{
+				command = new LocationCommand("poo");
+			}
+			else
+			{
+				throw new InvalidOperationException();
+			}
+
+			var output = command.Run().Result;
+
+			string serializedJson = JsonConvert.SerializeObject(output);
+	        return serializedJson;
         }
 
-        // GET: api/Luis/5
-        public string Get(int id)
-        {
-	        return null;
-        }
-
-        // POST: api/Luis
-        public async void Post([FromBody]string value)
+		// POST: api/Luis
+		[HttpPost]
+		[Route("{commandName}", Name = "Post")]
+		public async void Post([FromBody]string commandName)
         {
 	        CommandBase command = null;
 
-	        if (string.Equals(value, "count", StringComparison.OrdinalIgnoreCase))
+	        if (string.Equals(commandName, "count", StringComparison.OrdinalIgnoreCase))
 	        {
 		        command = new CountCommand("foo");
 	        }
-			else if (string.Equals(value, "location", StringComparison.OrdinalIgnoreCase))
+			else if (string.Equals(commandName, "location", StringComparison.OrdinalIgnoreCase))
 			{
 				command = new LocationCommand("poo");
 			}
@@ -46,16 +64,6 @@ namespace HelloClassroom.Controllers
 	        string serializedJson = JsonConvert.SerializeObject(output);
 
 	        // TODO: Send it to the IOT app
-        }
-
-        // PUT: api/Luis/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Luis/5
-        public void Delete(int id)
-        {
         }
     }
 }
