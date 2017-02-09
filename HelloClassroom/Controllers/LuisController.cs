@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using HelloClassroom.Commands;
+using Newtonsoft.Json;
 
 namespace HelloClassroom.Controllers
 {
@@ -42,9 +43,9 @@ namespace HelloClassroom.Controllers
 
 	        var output = await command.Run();
 
-			// TODO: Serialize output
+	        string serializedJson = JsonConvert.SerializeObject(output);
 
-			// TODO: Send it to the IOT app
+	        // TODO: Send it to the IOT app
         }
 
         // PUT: api/Luis/5

@@ -11,7 +11,7 @@ namespace HelloClassroom.Commands
 
 	public abstract class CommandBase
 	{
-		private string jsonData;
+		protected string jsonData;
 
 		public CommandBase(string jsonData)
 		{

@@ -11,5 +11,7 @@ namespace HelloClassroom.Models
 	public class DeviceCommand
 	{
 		public CommandType Type { get; set; }
+
+		public Dictionary<string, string> Data { get; set; }
 	}
 }
