@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using HelloClassroom.Commands;
 
 namespace HelloClassroom.Controllers
 {
@@ -18,12 +19,32 @@ namespace HelloClassroom.Controllers
         // GET: api/Luis/5
         public string Get(int id)
         {
-            return "value";
+	        return null;
         }
 
         // POST: api/Luis
-        public void Post([FromBody]string value)
+        public async void Post([FromBody]string value)
         {
+	        CommandBase command = null;
+
+	        if (string.Equals(value, "count", StringComparison.OrdinalIgnoreCase))
+	        {
+		        command = new CountCommand("foo");
+	        }
+			else if (string.Equals(value, "location", StringComparison.OrdinalIgnoreCase))
+			{
+				command = new LocationCommand("poo");
+			}
+			else
+			{
+				throw new InvalidOperationException();
+			}
+
+	        var output = await command.Run();
+
+			// TODO: Serialize output
+
+			// TODO: Send it to the IOT app
         }
 
         // PUT: api/Luis/5
