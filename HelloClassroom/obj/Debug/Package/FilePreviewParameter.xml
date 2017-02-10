@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="IIS Web Application Name" description="" value="HelloClassroom" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\HelloWorld\\HelloClassroom\\obj\\Debug\\Package\\PackageTmp$" />
-    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\HelloWorld\\HelloClassroom\\obj\\Debug\\Package\\PackageTmp$" />
-  </parameter>
-</parameters>
