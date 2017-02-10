@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -22,7 +23,8 @@ namespace HelloClassroom.Commands
 
 		public override async Task ProcessCommand()
 		{
-			_data = await GetLocationInfo("Seattle");
+			var location = GetLocationName();
+			_data = await GetLocationInfo(location);
 		}
 
 		public override DeviceCommand GenerateJsonPayload()
@@ -34,6 +36,11 @@ namespace HelloClassroom.Commands
 			};
 
 			return command;
+		}
+
+		private string GetLocationName()
+		{
+			return _entities.First(x => string.Equals(x.type, "Location", StringComparison.OrdinalIgnoreCase))?.entity;
 		}
 
 		private static async Task<Dictionary<string, object>> GetLocationInfo(string location)
