@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -25,7 +26,7 @@ namespace HelloClassroom.Commands
 			throw new System.NotImplementedException();
 		}
 
-		private static async Task<LocationData> GetLocationInfo(string location)
+		private static async Task<Dictionary<string, object>> GetLocationInfo(string location)
 		{
 			HttpClient bingClient = new HttpClient();
 			HttpResponseMessage response = await bingClient.GetAsync(BuildResponseUri(location));
@@ -35,19 +36,19 @@ namespace HelloClassroom.Commands
 		}
 
 
-		private static LocationData CreateLocationDataFromResponse(string jsonResponse)
+		private static Dictionary<string, object> CreateLocationDataFromResponse(string jsonResponse)
 		{
-			LocationData locationData = new LocationData();
+			Dictionary<string, object> locationData = new Dictionary<string, object>();
 
 			JObject responseObject = JObject.Parse(jsonResponse);
 			JToken entityObject = responseObject.SelectToken("entities.value[0]");
 
-			locationData.Description = (string)entityObject.SelectToken("description");
-			locationData.Name = (string)entityObject.SelectToken("name");
+			locationData["Description"] = (string)entityObject.SelectToken("description");
+			locationData["Name"] = (string)entityObject.SelectToken("name");
 
 			JToken entityPresentationInformation = entityObject.SelectToken("entityPresentationInfo");
 
-			locationData.EntityType = (string)entityPresentationInformation.SelectToken("entityTypeHints[0]");
+			locationData["Type"] = (string)entityPresentationInformation.SelectToken("entityTypeHints[0]");
 
 			JToken formattedFacts = entityPresentationInformation.SelectToken("formattedFacts");
 			foreach (JToken formattedFact in formattedFacts.Children())
@@ -55,18 +56,18 @@ namespace HelloClassroom.Commands
 				switch ((string)formattedFact.SelectToken("label"))
 				{
 					case "Population":
-						locationData.Population = (string)formattedFact.SelectToken("items[0].text");
+						locationData["Population"] = (string)formattedFact.SelectToken("items[0].text");
 						break;
 					case "Local time":
-						locationData.CurrentTime = (string)formattedFact.SelectToken("items[0].text");
+						locationData["Local time"] = (string)formattedFact.SelectToken("items[0].text");
 						break;
 					case "Area":
-						locationData.Area = (string)formattedFact.SelectToken("items[0].text");
+						locationData["Area"] = (string)formattedFact.SelectToken("items[0].text");
 						break;
 				}
 			}
 
-			locationData.MapImageBase64 = ConvertImageUrlToBase64((string) entityObject.SelectToken("image.thumbnailUrl"));
+			locationData["Thumbnail"] = ConvertImageUrlToBase64((string) entityObject.SelectToken("image.thumbnailUrl"));
 
 			return locationData;
 		}
