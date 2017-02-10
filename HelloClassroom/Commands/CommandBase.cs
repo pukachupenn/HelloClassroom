@@ -10,6 +10,9 @@ namespace HelloClassroom.Commands
 		None,
 		Count,
 		Location,
+		Timer,
+		Calculation,
+		Dictionary,
 	}
 
 	public abstract class CommandBase
