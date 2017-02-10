@@ -23,15 +23,14 @@ namespace HelloWorld
 	public sealed partial class MainPage : Page
 	{
 		private TimerViewModel timerViewModel;
+
 		public MainPage()
 		{
-			this.InitializeComponent();
+			InitializeComponent();
 			timerViewModel = new TimerViewModel(1, 5, "Counting");
-			Binding b = new Binding();
-			b.Path = new PropertyPath("Counting");
-			CommandText.SetBinding(TextBlock.TextProperty, b );
+		    var b = new Binding { Path = new PropertyPath("Counting") };
+		    CommandText.SetBinding(TextBlock.TextProperty, b);
 			DataContext = timerViewModel;
 		}
-
 	}
 }

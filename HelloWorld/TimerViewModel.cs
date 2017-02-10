@@ -31,8 +31,8 @@ namespace HelloWorld
 		{
 			get
 			{
-				var timer = duration - sw.Elapsed;
-				return timer.ToString(@"hh\:mm\:ss");
+				var time = duration - sw.Elapsed;
+				return time.ToString(@"hh\:mm\:ss");
 			}
 		}
 
@@ -45,6 +45,7 @@ namespace HelloWorld
 				{
 					return current;
 				}
+
 				return high;
 			}
 		}
@@ -56,10 +57,7 @@ namespace HelloWorld
 
 		private void RaisePropertyChanged(string propertyName)
 		{
-			if (PropertyChanged != null)
-			{
-				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 	}
 }
