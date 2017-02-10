@@ -6,7 +6,7 @@ namespace HelloWorld
 {
 	public class TimerViewModel : INotifyPropertyChanged
 	{
-		static readonly TimeSpan duration = TimeSpan.FromMinutes(2);
+		private readonly TimeSpan Duration;
 		System.Diagnostics.Stopwatch sw;
 		private DispatcherTimer timer;
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -17,36 +17,39 @@ namespace HelloWorld
 		public TimerViewModel(int start, int end, string func)
 		{
 			sw = System.Diagnostics.Stopwatch.StartNew();
-			timer = new DispatcherTimer();
-			timer.Interval = TimeSpan.FromSeconds(1);
+			timer = new DispatcherTimer
+			{
+				Interval = TimeSpan.FromSeconds(1)
+			};
+
 			timer.Tick += timer_Tick;
 			timer.Start();
 
+			command = func;
 			low = start;
 			high = end;
-			command = func;
-		}
 
-		public string TimeFromStart
-		{
-			get
+			if (func.Equals("Timer"))
 			{
-				var time = duration - sw.Elapsed;
-				return time.ToString(@"hh\:mm\:ss");
+				Duration = TimeSpan.FromMinutes(start);
 			}
 		}
 
-		public int Counting
+		public string Timer
+		{
+			get
+			{
+				var timeElapsed = Duration - sw.Elapsed;
+				return timeElapsed.ToString(@"hh\:mm\:ss");
+			}
+		}
+
+		public int Count
 		{
 			get
 			{
 				var current = sw.Elapsed.Seconds + low;
-				if (current <= high)
-				{
-					return current;
-				}
-
-				return high;
+				return current <= high ? current : high;
 			}
 		}
 
@@ -57,7 +60,7 @@ namespace HelloWorld
 
 		private void RaisePropertyChanged(string propertyName)
 		{
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }

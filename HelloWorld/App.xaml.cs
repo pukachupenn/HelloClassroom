@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json;
 
 namespace HelloWorld
 {
@@ -69,10 +70,27 @@ namespace HelloWorld
             {
                 if (rootFrame.Content == null)
                 {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+					// When the navigation stack isn't restored navigate to the first page,
+					// configuring the new page by passing required information as a navigation
+					// parameter
+
+					string json = "{\"type\":\"Count\",\"data\":{\"from\":0,\"to\":15}}";
+
+					dynamic deserializeObject = JsonConvert.DeserializeObject(json);
+					string command = deserializeObject.type;
+
+	                if (command.Equals("Timer"))
+	                {
+		                rootFrame.Navigate(typeof (Timer), json);
+	                }
+	                else if (command.Equals("Count"))
+	                {
+						rootFrame.Navigate(typeof(Count), json);
+					}
+					else if (command.Equals("Location"))
+					{
+						rootFrame.Navigate(typeof(Location), json);
+					}
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();

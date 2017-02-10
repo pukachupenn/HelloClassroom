@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -26,11 +27,21 @@ namespace HelloWorld
 
 		public MainPage()
 		{
-			InitializeComponent();
-			timerViewModel = new TimerViewModel(1, 5, "Counting");
-		    var b = new Binding { Path = new PropertyPath("Counting") };
-		    CommandText.SetBinding(TextBlock.TextProperty, b);
-			DataContext = timerViewModel;
+			this.InitializeComponent();
+
+			string json = "{\"type\":\"Count\",\"data\":{\"from\":0,\"to\":15}}";
+
+			dynamic deserializeObject = JsonConvert.DeserializeObject(json);
+			string command = deserializeObject.type;
+			var data = deserializeObject.data;
+
+			if (command == "Count")
+			{
+				this.Frame.Navigate(typeof(Timer), null);
+				var from = data.from.Value;
+				var to = data.to.Value;
+				timerViewModel = new TimerViewModel(Convert.ToInt32(from), Convert.ToInt32(to), command);
+			}
 		}
 	}
 }
