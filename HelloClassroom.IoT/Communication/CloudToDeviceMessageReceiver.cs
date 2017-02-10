@@ -1,7 +1,7 @@
-﻿namespace HelloWorld
+﻿namespace HelloClassroom.IoT.Communication
 {
-    using System.Threading.Tasks;
     using System.Text;
+    using System.Threading.Tasks;
     using Microsoft.Azure.Devices.Client;
 
     class CloudToDeviceMessageReceiver : IMessageReceiver

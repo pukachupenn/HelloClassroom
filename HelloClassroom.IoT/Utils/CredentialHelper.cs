@@ -1,4 +1,4 @@
-﻿namespace HelloWorld.Utils
+﻿namespace HelloClassroom.IoT.Utils
 {
     static class CredentialHelper
     {

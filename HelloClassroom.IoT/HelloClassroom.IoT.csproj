@@ -7,8 +7,8 @@
     <ProjectGuid>{018404C0-A65F-4FF0-A35C-3F59F303E01D}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HelloWorld</RootNamespace>
-    <AssemblyName>HelloWorld</AssemblyName>
+    <RootNamespace>HelloClassroom.IoT</RootNamespace>
+    <AssemblyName>HelloClassroom.IoT</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -96,7 +96,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Communication\IMessageReceiver.cs" />
-    <Compile Include="IMessageReceiver.cs" />
     <Compile Include="Location.xaml.cs">
       <DependentUpon>Location.xaml</DependentUpon>
     </Compile>

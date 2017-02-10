@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
-using Newtonsoft.Json;
-
-namespace HelloWorld
+﻿namespace HelloClassroom.IoT
 {
-	public sealed partial class Location : Page
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Navigation;
+    using Newtonsoft.Json;
+
+    public sealed partial class Location : Page
 	{
 		public Location()
 		{

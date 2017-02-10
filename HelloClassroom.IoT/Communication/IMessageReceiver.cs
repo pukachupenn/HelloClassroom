@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.Azure.Devices.Client;
 
-namespace HelloWorld
+namespace HelloClassroom.IoT.Communication
 {
     internal interface IMessageReceiver
     {

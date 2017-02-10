@@ -1,10 +1,10 @@
-﻿using System;
-using System.ComponentModel;
-using Windows.UI.Xaml;
-
-namespace HelloWorld
+﻿namespace HelloClassroom.IoT
 {
-	public class TimerViewModel : INotifyPropertyChanged
+    using System;
+    using System.ComponentModel;
+    using Windows.UI.Xaml;
+
+    public class TimerViewModel : INotifyPropertyChanged
 	{
 		private readonly TimeSpan Duration;
 		System.Diagnostics.Stopwatch sw;
