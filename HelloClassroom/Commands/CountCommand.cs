@@ -18,7 +18,7 @@ namespace HelloClassroom.Commands
 
 		public override Task ProcessCommand()
 		{
-			ParseJson();
+			ParseEntities();
 			return Task.FromResult(0);
 		}
 
@@ -37,7 +37,7 @@ namespace HelloClassroom.Commands
 			return command;
 		}
 
-		private void ParseJson()
+		private void ParseEntities()
 		{
 			_fromCount = 1;
 			_toCount = 10;
@@ -47,11 +47,11 @@ namespace HelloClassroom.Commands
 				var entityType = ent.type;
 				if (entityType.Equals("To"))
 				{
-					_toCount = Convert.ToInt32(ent.entity, _toCount);
+					int.TryParse(ent.entity, out _toCount);
 				}
 				else if (entityType.Equals("From"))
 				{
-					_fromCount = Convert.ToInt32(ent.entity, _fromCount);
+					int.TryParse(ent.entity, out _fromCount);
 				}
 			}
 		}
