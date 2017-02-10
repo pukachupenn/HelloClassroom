@@ -1,16 +1,16 @@
-﻿using System;
-using System.Configuration;
-using System.Web.Http;
-using HelloClassroom.Commands;
-using Newtonsoft.Json;
-using Fuzzy.Cortana;
-using System.Threading.Tasks;
-using HelloClassroom.Communication;
-using HelloClassroom.Models;
-
-namespace HelloClassroom.Controllers
+﻿namespace HelloClassroom.Controllers
 {
-	[RoutePrefix("api/go")]
+    using System;
+    using System.Configuration;
+    using System.Web.Http;
+    using HelloClassroom.Commands;
+    using Newtonsoft.Json;
+    using Fuzzy.Cortana;
+    using System.Threading.Tasks;
+    using HelloClassroom.Communication;
+    using HelloClassroom.Models;
+
+    [RoutePrefix("api/go")]
 	public class GoController : ApiController
 	{
 	    private readonly LuisClient luisClient = new LuisClient();
@@ -18,16 +18,21 @@ namespace HelloClassroom.Controllers
 		// GET: api/go/5
 		[HttpGet]
 		[Route("{commandName}", Name = "Get")]
-		public async Task<DeviceCommand> Get(string commandName)
+		public async Task<IHttpActionResult> Get(string commandName)
 		{
-			var deviceCommand = await CallLuis(commandName);
+			var deviceCommand = await CallLuisAsync(commandName);
 
-		    var stringMessage = JsonConvert.SerializeObject(deviceCommand);
-            var sender = new CloudToDeviceMessageSender(GetConnectionString());
-		    await sender.SendMessageAsync(GetDeviceName(), stringMessage);
+		    await SendDeviceCommandAsync(deviceCommand);
 
-		    return deviceCommand;
+		    return Ok();
 		}
+
+	    private async Task SendDeviceCommandAsync(DeviceCommand deviceCommand)
+	    {
+            var stringMessage = JsonConvert.SerializeObject(deviceCommand);
+            var sender = new CloudToDeviceMessageSender(GetConnectionString());
+            await sender.SendMessageAsync(GetDeviceName(), stringMessage);
+        }
 
 	    private string GetDeviceName()
 	    {
@@ -39,11 +44,11 @@ namespace HelloClassroom.Controllers
             return ConfigurationManager.AppSettings["IoTHubConnectionString"];
         }
 
-		private async Task<DeviceCommand> CallLuis(string input)
+		private async Task<DeviceCommand> CallLuisAsync(string input)
 		{
 			var parsedMessage = await luisClient.parseInput(input);
 
-			CommandBase command = null;
+			CommandBase command;
 
 			switch (parsedMessage.topScoringIntent.intent)
 			{

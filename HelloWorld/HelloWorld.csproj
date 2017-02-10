@@ -95,13 +95,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IMessageReceiver.cs" />
+    <Compile Include="Communication\IMessageReceiver.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CloudToDeviceMessageReceiver.cs" />
+    <Compile Include="Communication\CloudToDeviceMessageReceiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimerViewModel.cs" />
+    <Compile Include="Utils\CredentialHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
