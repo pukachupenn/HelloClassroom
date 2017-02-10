@@ -9,7 +9,7 @@ namespace HelloClassroom.Controllers
 	public class LuisController : ApiController
     {
 		// GET: api/Luis/5
-		[HttpGet]
+/*		[HttpGet]
 		[Route("{commandName}", Name = "Get")]
 		public string Get(string commandName)
         {
@@ -32,10 +32,10 @@ namespace HelloClassroom.Controllers
 
 			string serializedJson = JsonConvert.SerializeObject(output);
 	        return serializedJson;
-        }
+        }*/
 
 		// POST: api/Luis
-		[HttpPost]
+/*		[HttpPost]
 		[Route("{commandName}", Name = "Post")]
 		public async void Post([FromBody]string commandName)
         {
@@ -59,6 +59,6 @@ namespace HelloClassroom.Controllers
 	        string serializedJson = JsonConvert.SerializeObject(output);
 
 	        // TODO: Send it to the IOT app
-        }
+        }*/
     }
 }
