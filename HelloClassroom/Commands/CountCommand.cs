@@ -18,7 +18,7 @@ namespace HelloClassroom.Commands
 
 		public override Task ProcessCommand()
 		{
-			ParseJson();
+			ParseEntities();
 			return Task.FromResult(0);
 		}
 
@@ -37,7 +37,7 @@ namespace HelloClassroom.Commands
 			return command;
 		}
 
-		private void ParseJson()
+		private void ParseEntities()
 		{
 			_fromCount = 1;
 			_toCount = 10;
