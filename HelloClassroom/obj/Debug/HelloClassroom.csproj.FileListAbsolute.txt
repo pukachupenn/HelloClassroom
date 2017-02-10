@@ -87,6 +87,5 @@ C:\Users\siddsha\Source\Repos\NewRepo\HelloClassroom\bin\System.Web.WebPages.xml
 C:\Users\siddsha\Source\Repos\NewRepo\HelloClassroom\bin\System.Web.WebPages.Deployment.xml
 C:\Users\siddsha\Source\Repos\NewRepo\HelloClassroom\bin\System.Web.WebPages.Razor.xml
 C:\Users\siddsha\Source\Repos\NewRepo\HelloClassroom\bin\Antlr3.Runtime.pdb
-C:\Users\siddsha\Source\Repos\NewRepo\HelloClassroom\obj\Debug\HelloClassroom.csprojResolveAssemblyReference.cache
 C:\Users\siddsha\Source\Repos\NewRepo\HelloClassroom\obj\Debug\HelloClassroom.dll
 C:\Users\siddsha\Source\Repos\NewRepo\HelloClassroom\obj\Debug\HelloClassroom.pdb
