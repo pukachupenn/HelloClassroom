@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Http;
 using HelloClassroom.Commands;
+using HelloClassroom.Models;
 using Newtonsoft.Json;
 
 namespace HelloClassroom.Controllers
@@ -11,7 +13,7 @@ namespace HelloClassroom.Controllers
 		// GET: api/Luis/5
 		[HttpGet]
 		[Route("{commandName}", Name = "Get")]
-		public string Get(string commandName)
+		public async Task<DeviceCommand> Get(string commandName)
         {
 			CommandBase command = null;
 
@@ -28,10 +30,10 @@ namespace HelloClassroom.Controllers
 				throw new InvalidOperationException();
 			}
 
-			var output = command.Run().Result;
-
-			string serializedJson = JsonConvert.SerializeObject(output);
-	        return serializedJson;
+			return await command.Run();
+			//return output;
+			//string serializedJson = JsonConvert.SerializeObject(output);
+			//return serializedJson;
         }
 
 		// POST: api/Luis

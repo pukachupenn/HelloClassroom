@@ -38,7 +38,7 @@ namespace HelloClassroom.Commands
 		private static async Task<Dictionary<string, object>> GetLocationInfo(string location)
 		{
 			HttpClient bingClient = new HttpClient();
-			HttpResponseMessage response = await bingClient.GetAsync(BuildResponseUri(location));
+			HttpResponseMessage response = await bingClient.GetAsync(BuildResponseUri(location)).ConfigureAwait(false);
 			string jsonResponse = await response.Content.ReadAsStringAsync();
 
 			return CreateLocationDataFromResponse(jsonResponse);
