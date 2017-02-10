@@ -199,7 +199,6 @@
     <Compile Include="Communication\IMessageSender.cs" />
     <Compile Include="Controllers\GoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LuisController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

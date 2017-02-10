@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Fuzzy.Cortana;
 using HelloClassroom.Models;
 using HelloClassroom.Utils;
 using Newtonsoft.Json.Linq;
@@ -15,7 +16,7 @@ namespace HelloClassroom.Commands
 	{
 		private Dictionary<string, object> _data;
 
-		public LocationCommand(string jsonData) : base(jsonData)
+		public LocationCommand(IEnumerable<lEntity> entities) : base(entities)
 		{
 		}
 
