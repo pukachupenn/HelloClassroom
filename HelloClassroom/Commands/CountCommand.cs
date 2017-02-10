@@ -47,11 +47,11 @@ namespace HelloClassroom.Commands
 				var entityType = ent.type;
 				if (entityType.Equals("To"))
 				{
-					_toCount = Convert.ToInt32(ent.entity, _toCount);
+					int.TryParse(ent.entity, out _toCount);
 				}
 				else if (entityType.Equals("From"))
 				{
-					_fromCount = Convert.ToInt32(ent.entity, _fromCount);
+					int.TryParse(ent.entity, out _fromCount);
 				}
 			}
 		}
