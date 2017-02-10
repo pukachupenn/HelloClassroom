@@ -13,18 +13,26 @@ namespace HelloClassroom.Commands
 {
 	public class LocationCommand : CommandBase
 	{
+		private Dictionary<string, object> _data;
+
 		public LocationCommand(string jsonData) : base(jsonData)
 		{
 		}
 
-		public override Task ProcessCommand()
+		public override async Task ProcessCommand()
 		{
-			throw new System.NotImplementedException();
+			_data = await GetLocationInfo("Seattle");
 		}
 
 		public override DeviceCommand GenerateJsonPayload()
 		{
-			throw new System.NotImplementedException();
+			var command = new DeviceCommand()
+			{
+				Type = CommandType.Location,
+				Data = _data
+			};
+
+			return command;
 		}
 
 		private static async Task<Dictionary<string, object>> GetLocationInfo(string location)
