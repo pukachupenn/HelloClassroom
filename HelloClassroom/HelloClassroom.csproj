@@ -164,6 +164,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Models\LocationData.cs" />
     <Compile Include="Models\DeviceCommand.cs" />
     <Compile Include="Models\RequestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
