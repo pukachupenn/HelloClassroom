@@ -61,7 +61,8 @@
 					break;
 
 				default:
-					throw new InvalidOperationException();
+					command = new NoneCommand();
+					break;
 			}
 
 			return await command.Run();
