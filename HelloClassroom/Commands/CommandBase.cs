@@ -1,21 +1,24 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Fuzzy.Cortana;
 using HelloClassroom.Models;
 
 namespace HelloClassroom.Commands
 {
 	public enum CommandType
 	{
+		None,
 		Count,
 		Location,
 	}
 
 	public abstract class CommandBase
 	{
-		protected string jsonData;
+		protected IEnumerable<lEntity> _entities;
 
-		public CommandBase(string jsonData)
+		protected CommandBase(IEnumerable<lEntity> entities)
 		{
-			this.jsonData = jsonData;
+			_entities = entities;
 		}
 
 		public abstract Task ProcessCommand();

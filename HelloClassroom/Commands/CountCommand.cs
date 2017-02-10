@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Fuzzy.Cortana;
 using HelloClassroom.Models;
 using Newtonsoft.Json;
 
@@ -10,7 +12,7 @@ namespace HelloClassroom.Commands
 		private int _fromCount;
 		private int _toCount;
 
-		public CountCommand(string jsonData) : base(jsonData)
+		public CountCommand(IEnumerable<lEntity> entities) : base(entities)
 		{
 		}
 
@@ -37,11 +39,21 @@ namespace HelloClassroom.Commands
 
 		private void ParseJson()
 		{
-			// TODO: Parse the LUIS payload here
-			//var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(this.jsonData);
+			_fromCount = 1;
+			_toCount = 10;
 
-			_fromCount = 0;
-			_toCount = 15;
+			foreach (lEntity ent in _entities)
+			{
+				var entityType = ent.type;
+				if (entityType.Equals("To"))
+				{
+					_toCount = Convert.ToInt32(ent.entity, _toCount);
+				}
+				else if (entityType.Equals("From"))
+				{
+					_fromCount = Convert.ToInt32(ent.entity, _fromCount);
+				}
+			}
 		}
 	}
 }

@@ -4,6 +4,7 @@ using HelloClassroom.Commands;
 using Newtonsoft.Json;
 using Fuzzy.Cortana;
 using System.Threading.Tasks;
+using HelloClassroom.Models;
 
 namespace HelloClassroom.Controllers
 {
@@ -15,50 +16,32 @@ namespace HelloClassroom.Controllers
 		// GET: api/go/5
 		[HttpGet]
 		[Route("{commandName}", Name = "Get")]
-		public async Task<string> Get(string commandName)
+		public async Task<DeviceCommand> Get(string commandName)
 		{
-			var result = await CallLuis(commandName);
-
-			string serializedJson = JsonConvert.ToString(result);
-			return serializedJson;
+			return await CallLuis(commandName);
 		}
 
-		private async Task<bool> CallLuis(string command)
+		private async Task<DeviceCommand> CallLuis(string input)
 		{
-			var parsedMessage = await luisClient.parseInput(command);
+			var parsedMessage = await luisClient.parseInput(input);
+
+			CommandBase command = null;
 
 			switch (parsedMessage.topScoringIntent.intent)
 			{
 				case "Count":
-					{
-						int from = 1;
-						int to = 10;
-						foreach (lEntity ent in parsedMessage.entities)
-						{
-							var entityType = ent.type;
-							if (entityType.Equals("To"))
-							{
-								to = Convert.ToInt32(ent.entity, to);
-							}
-							else if (entityType.Equals("From"))
-							{
-								from = Convert.ToInt32(ent.entity, from);
-							}
-						}
+					command = new CountCommand(parsedMessage.entities);
+					break;
 
-						String returnMe = "";
-						for (int i = from; i <= to; i++)
-						{
-							returnMe = returnMe + i + " ";
-						}
-					}
+				case "Location":
+					command = new LocationCommand(parsedMessage.entities);
 					break;
 
 				default:
 					throw new InvalidOperationException();
 			}
 
-			return true;
+			return await command.Run();
 		}
 
 	}
