@@ -1,4 +1,4 @@
-﻿namespace DeviceCredentialManager
+﻿namespace HelloClassroom.DeviceCredentialManager
 {
     using System.Threading.Tasks;
     using Microsoft.Azure.Devices;
