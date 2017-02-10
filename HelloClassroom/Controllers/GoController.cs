@@ -27,6 +27,14 @@
 			return Ok();
 		}
 
+		[HttpGet]
+		[Route("test/{commandName}", Name = "GetDeviceCommand")]
+		public async Task<DeviceCommand> GetDeviceCommand(string commandName)
+		{
+			var deviceCommand = await CallLuisAsync(commandName);
+			return deviceCommand;
+		}
+
 		private async Task SendDeviceCommandAsync(DeviceCommand deviceCommand)
 		{
 			var stringMessage = JsonConvert.SerializeObject(deviceCommand);
