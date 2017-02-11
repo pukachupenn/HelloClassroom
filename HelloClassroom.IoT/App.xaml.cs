@@ -1,6 +1,8 @@
 ﻿using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.System.Threading;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -66,10 +68,35 @@ namespace HelloClassroom.IoT
 
 					string json = "{\"type\":\"Count\",\"data\":{\"from\":0,\"to\":15}}";
                     rootFrame.Navigate(typeof(MainPage), json);
+                    ThreadPoolTimer.CreatePeriodicTimer(timer => CheckIncomingCommand(rootFrame), TimeSpan.FromSeconds(1));
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+        }
+
+        private void CheckIncomingCommand(Frame frame)
+        {
+            string json = AzureIoTHub.ReceiveCloudToDeviceMessageAsync().Result;
+
+            dynamic deserializeObject = JsonConvert.DeserializeObject(json);
+            string command = deserializeObject.Type;
+
+            frame.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                if (command.Equals("Timer"))
+                {
+                    frame.Navigate(typeof(Timer), json);
+                }
+                else if (command.Equals("Count"))
+                {
+                    frame.Navigate(typeof(Count), json);
+                }
+                else if (command.Equals("Location"))
+                {
+                    frame.Navigate(typeof(Location), json);
+                }
+            }).GetResults();
         }
 
         /// <summary>

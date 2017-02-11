@@ -19,10 +19,10 @@
 			base.OnNavigatedTo(e);
 
 			dynamic deserializeObject = JsonConvert.DeserializeObject(e.Parameter.ToString());
-			var data = deserializeObject.data;
+			var data = deserializeObject.Data;
 
-			var from = data.from.Value;
-			var to = data.to.Value;
+			var from = 1;
+		    var to = 10;
 			timerViewModel = new TimerViewModel(Convert.ToInt32(from), Convert.ToInt32(to), "Count");
 			DataContext = timerViewModel;
 		}

@@ -19,9 +19,9 @@
 			base.OnNavigatedTo(e);
 
 			dynamic deserializeObject = JsonConvert.DeserializeObject(e.Parameter.ToString());
-			var data = deserializeObject.data;
+			var data = deserializeObject.Data;
 
-			var minutes = data.minutes.Value;
+			var minutes = data.timer.Value;
 			timerViewModel = new TimerViewModel(Convert.ToInt32(minutes), 0, "Timer");
 			DataContext = timerViewModel;
 		}

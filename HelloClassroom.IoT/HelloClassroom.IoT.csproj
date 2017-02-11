@@ -107,6 +107,9 @@
     <Compile Include="Count.xaml.cs">
       <DependentUpon>Count.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TestPage.xaml.cs">
+      <DependentUpon>TestPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Timer.xaml.cs">
       <DependentUpon>Timer.xaml</DependentUpon>
     </Compile>
@@ -143,6 +146,10 @@
     <Page Include="Count.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Timer.xaml">
       <SubType>Designer</SubType>

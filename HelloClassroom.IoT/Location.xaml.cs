@@ -16,7 +16,7 @@
 			base.OnNavigatedTo(e);
 
 			dynamic deserializeObject = JsonConvert.DeserializeObject(e.Parameter.ToString());
-			var data = deserializeObject.data;
+			var data = deserializeObject.Data;
 		}
 
 	}
