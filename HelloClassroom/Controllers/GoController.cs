@@ -1,19 +1,19 @@
 ﻿namespace HelloClassroom.Controllers
 {
-    using System;
-    using System.Configuration;
-    using System.Web.Http;
-    using HelloClassroom.Commands;
-    using Newtonsoft.Json;
-    using Fuzzy.Cortana;
-    using System.Threading.Tasks;
-    using HelloClassroom.Communication;
-    using HelloClassroom.Models;
+	using System;
+	using System.Configuration;
+	using System.Web.Http;
+	using HelloClassroom.Commands;
+	using Newtonsoft.Json;
+	using Fuzzy.Cortana;
+	using System.Threading.Tasks;
+	using HelloClassroom.Communication;
+	using HelloClassroom.Models;
 
-    [RoutePrefix("api/go")]
+	[RoutePrefix("api/go")]
 	public class GoController : ApiController
 	{
-	    private readonly LuisClient luisClient = new LuisClient();
+		private readonly LuisClient luisClient = new LuisClient();
 
 		// GET: api/go/5
 		[HttpGet]
@@ -22,27 +22,35 @@
 		{
 			var deviceCommand = await CallLuisAsync(commandName);
 
-		    await SendDeviceCommandAsync(deviceCommand);
+			await SendDeviceCommandAsync(deviceCommand);
 
-		    return Ok();
+			return Ok();
 		}
 
-	    private async Task SendDeviceCommandAsync(DeviceCommand deviceCommand)
-	    {
-            var stringMessage = JsonConvert.SerializeObject(deviceCommand);
-            var sender = new CloudToDeviceMessageSender(GetConnectionString());
-            await sender.SendMessageAsync(GetDeviceName(), stringMessage);
-        }
+		[HttpGet]
+		[Route("test/{commandName}", Name = "GetDeviceCommand")]
+		public async Task<DeviceCommand> GetDeviceCommand(string commandName)
+		{
+			var deviceCommand = await CallLuisAsync(commandName);
+			return deviceCommand;
+		}
 
-	    private string GetDeviceName()
-	    {
-	        return "myFirstDevice";
-	    }
+		private async Task SendDeviceCommandAsync(DeviceCommand deviceCommand)
+		{
+			var stringMessage = JsonConvert.SerializeObject(deviceCommand);
+			var sender = new CloudToDeviceMessageSender(GetConnectionString());
+			await sender.SendMessageAsync(GetDeviceName(), stringMessage);
+		}
 
-	    private static string GetConnectionString()
-	    {
-            return ConfigurationManager.AppSettings["IoTHubConnectionString"];
-        }
+		private string GetDeviceName()
+		{
+			return "myFirstDevice";
+		}
+
+		private static string GetConnectionString()
+		{
+			return ConfigurationManager.AppSettings["IoTHubConnectionString"];
+		}
 
 		private async Task<DeviceCommand> CallLuisAsync(string input)
 		{
@@ -58,6 +66,14 @@
 
 				case "Location":
 					command = new LocationCommand(parsedMessage.entities);
+					break;
+
+				case "Calculation":
+					command = new CalculationCommand(parsedMessage.entities);
+					break;
+
+				case "Timer":
+					command = new TimerCommand(parsedMessage.entities);
 					break;
 
 				default:
