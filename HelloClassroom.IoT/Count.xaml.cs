@@ -21,9 +21,9 @@
 			dynamic deserializeObject = JsonConvert.DeserializeObject(e.Parameter.ToString());
 			var data = deserializeObject.Data;
 
-			var from = 1;
-		    var to = 10;
-			timerViewModel = new TimerViewModel(Convert.ToInt32(from), Convert.ToInt32(to), "Count");
+			int from = data.from;
+			int to = data.to;
+			timerViewModel = new TimerViewModel(from, to, "Count");
 			DataContext = timerViewModel;
 		}
 	}

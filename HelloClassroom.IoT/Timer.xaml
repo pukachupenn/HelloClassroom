@@ -8,7 +8,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-			<TextBlock Text="{Binding Count}" FontSize="60" Name="CommandText" />
+			<TextBlock Text="{Binding Timer}" FontSize="60" Name="CommandText" />
 		</StackPanel>
     </Grid>
 </Page>
