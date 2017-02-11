@@ -77,22 +77,22 @@ namespace HelloClassroom.IoT
 					string json = "{\"type\":\"Count\",\"data\":{\"from\":0,\"to\":15}}";
                     rootFrame.Navigate(typeof(MainPage), json);
 
-                    ThreadPoolTimer.CreatePeriodicTimer(timer => CheckIncomingCommand(rootFrame), TimeSpan.FromSeconds(1));
-					//dynamic deserializeObject = JsonConvert.DeserializeObject(json);
-					//string command = deserializeObject.type;
+	                Task.Run(() => CheckIncomingCommand(rootFrame));
+	                //dynamic deserializeObject = JsonConvert.DeserializeObject(json);
+	                //string command = deserializeObject.type;
 
-	    //            if (command.Equals("Timer"))
-	    //            {
-		   //             rootFrame.Navigate(typeof (Timer), json);
-	    //            }
-	    //            else if (command.Equals("Count"))
-	    //            {
-					//	rootFrame.Navigate(typeof(Count), json);
-					//}
-					//else if (command.Equals("Location"))
-					//{
-					//	rootFrame.Navigate(typeof(Location), json);
-					//}
+	                //            if (command.Equals("Timer"))
+	                //            {
+	                //             rootFrame.Navigate(typeof (Timer), json);
+	                //            }
+	                //            else if (command.Equals("Count"))
+	                //            {
+	                //	rootFrame.Navigate(typeof(Count), json);
+	                //}
+	                //else if (command.Equals("Location"))
+	                //{
+	                //	rootFrame.Navigate(typeof(Location), json);
+	                //}
 
                 }
                 // Ensure the current window is active
@@ -102,26 +102,29 @@ namespace HelloClassroom.IoT
 
         private void CheckIncomingCommand(Frame frame)
         {
-            string json = AzureIoTHub.ReceiveCloudToDeviceMessageAsync().Result;
+	        while (true)
+	        {
+		        string json = AzureIoTHub.ReceiveCloudToDeviceMessageAsync().Result;
 
-            dynamic deserializeObject = JsonConvert.DeserializeObject(json);
-            string command = deserializeObject.Type;
+		        dynamic deserializeObject = JsonConvert.DeserializeObject(json);
+		        string command = deserializeObject.Type;
 
-            frame.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                if (command.Equals("Timer"))
-                {
-                    frame.Navigate(typeof(Timer), json);
-                }
-                else if (command.Equals("Count"))
-                {
-                    frame.Navigate(typeof(Count), json);
-                }
-                else if (command.Equals("Location"))
-                {
-                    frame.Navigate(typeof(Location), json);
-                }
-            }).GetResults();
+		        frame.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+		        {
+			        if (command.Equals("Timer"))
+			        {
+				        frame.Navigate(typeof (Timer), json);
+			        }
+			        else if (command.Equals("Count"))
+			        {
+				        frame.Navigate(typeof (Count), json);
+			        }
+			        else if (command.Equals("Location"))
+			        {
+				        frame.Navigate(typeof (Location), json);
+			        }
+		        });
+	        }
         }
 
         /// <summary>

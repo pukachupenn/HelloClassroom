@@ -20,22 +20,22 @@ namespace HelloClassroom.IoT
 			dynamic deserializeObject = JsonConvert.DeserializeObject(e.Parameter.ToString());
 			var data = deserializeObject.Data;
 
-			string area = data.area;
+			string area = data.Area;
 			textBox.Text = area;
 
-			string description = data.description;
+			string description = data.Description;
 			textBox1.Text = description;
 
-			string name = data.name;
+			string name = data.Name;
 			textBox2.Text = name;
 
-			string population = data.population;
+			string population = data.Population;
 			textBox3.Text = population;
 
-			string type = data.type;
+			string type = data.Type;
 			textBox4.Text = type;
 
-			string thumbnail = data.thumbnail;
+			string thumbnail = data.Thumbnail;
 			image.Source = Base64StringToBitmap(thumbnail);
 		}
 
