@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.System.Threading;
@@ -65,10 +67,33 @@ namespace HelloClassroom.IoT
 					// When the navigation stack isn't restored navigate to the first page,
 					// configuring the new page by passing required information as a navigation
 					// parameter
+	                //string json;
+	                //using (var client = new HttpClient())
+	                //{
+		               // string uri =
+			              //  "http://helloclassroom.azurewebsites.net/api/go/test/i%20want%20to%20know%20about%20Seattle";
+
 
 					string json = "{\"type\":\"Count\",\"data\":{\"from\":0,\"to\":15}}";
                     rootFrame.Navigate(typeof(MainPage), json);
+
                     ThreadPoolTimer.CreatePeriodicTimer(timer => CheckIncomingCommand(rootFrame), TimeSpan.FromSeconds(1));
+					//dynamic deserializeObject = JsonConvert.DeserializeObject(json);
+					//string command = deserializeObject.type;
+
+	    //            if (command.Equals("Timer"))
+	    //            {
+		   //             rootFrame.Navigate(typeof (Timer), json);
+	    //            }
+	    //            else if (command.Equals("Count"))
+	    //            {
+					//	rootFrame.Navigate(typeof(Count), json);
+					//}
+					//else if (command.Equals("Location"))
+					//{
+					//	rootFrame.Navigate(typeof(Location), json);
+					//}
+
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();

@@ -6,9 +6,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-			<TextBlock Text="{Binding Count}" FontSize="60" Name="CommandText" />
-		</StackPanel>
-    </Grid>
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="340" BorderThickness="0"/>
+		<TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="20" Margin="10,42,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="297" BorderThickness="0"/>
+		<TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="20" Margin="10,79,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="355" BorderThickness="0"/>
+		<TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="20" Margin="10,116,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="355" BorderThickness="0"/>
+		<TextBox x:Name="textBox4" HorizontalAlignment="Left" Height="20" Margin="10,153,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="350" BorderThickness="0"/>
+		<Image x:Name="image" HorizontalAlignment="Left" Height="45" Margin="10,190,0,0" VerticalAlignment="Top" Width="297"/>
+	</Grid>
 </Page>
