@@ -1,4 +1,5 @@
-﻿using Windows.Storage.Streams;
+﻿using System;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -36,7 +37,7 @@ namespace HelloClassroom.IoT
 			textBox4.Text = type;
 
 			string thumbnail = data.Thumbnail;
-			image.Source = Base64StringToBitmap(thumbnail);
+			image.Source = new BitmapImage(new Uri(thumbnail));
 		}
 
 		public static BitmapImage Base64StringToBitmap(string base64String)

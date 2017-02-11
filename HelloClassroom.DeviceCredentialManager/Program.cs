@@ -26,7 +26,7 @@
                     try
                     {
                         var result = DeviceRegistryManager.RegisterDeviceAsync(deviceId).Result;
-                        Console.WriteLine($"Registration succeed, device key is {result}.");
+                        Console.WriteLine($"Registration succeed, device key is {result}");
                     }
                     catch (DeviceAlreadyExistsException)
                     {
@@ -39,7 +39,7 @@
                     try
                     {
                         var result = DeviceRegistryManager.GetPrimaryKeyOfExistingDevice(deviceId).Result;
-                        Console.WriteLine($"Device Key is {result}.");
+                        Console.WriteLine($"Device Key is {result}");
                     }
                     catch (AggregateException)
                     {
@@ -52,7 +52,7 @@
                 }
                 else
                 {
-                    Console.WriteLine($"Unknown command: {command}.");
+                    Console.WriteLine($"Unknown command: {command}");
                 }
             }
         }

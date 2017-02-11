@@ -44,7 +44,7 @@
 
 		private string GetDeviceName()
 		{
-			return "myFirstDevice";
+			return "testDevice";
 		}
 
 		private static string GetConnectionString()

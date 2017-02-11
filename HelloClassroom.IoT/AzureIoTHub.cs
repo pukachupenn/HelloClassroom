@@ -9,7 +9,7 @@ static class AzureIoTHub
     // Note: this connection string is specific to the device "myFirstDevice". To configure other devices,
     // see information on iothub-explorer at http://aka.ms/iothubgetstartedVSCS
     //
-    const string deviceConnectionString = "HostName=HelloClassroomHub.azure-devices.net;DeviceId=myFirstDevice;SharedAccessKey=GdL0PphWgOKpMt9jsjYzipnV5P9f353w2cNDfjzFRqw=";
+    const string deviceConnectionString = "HostName=HelloClassroomHub.azure-devices.net;DeviceId=testDevice;SharedAccessKey=y2jvGvdEzLLYxLhpwESP1eHoMlLC85QMdCRlQFU+Ppg=";
 
     //
     // To monitor messages sent to device "myFirstDevice" use iothub-explorer as follows:
