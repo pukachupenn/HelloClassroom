@@ -1,4 +1,8 @@
-﻿namespace HelloClassroom.IoT
+﻿using Windows.System.Threading;
+using Windows.UI.Core;
+using Windows.UI.Xaml.Navigation;
+
+namespace HelloClassroom.IoT
 {
     using System;
     using Windows.UI.Xaml.Controls;
@@ -11,23 +15,54 @@
 	{
 		private TimerViewModel timerViewModel;
 
+	    private ThreadPoolTimer commandTimer;
+
 		public MainPage()
 		{
 			this.InitializeComponent();
-
-			string json = "{\"type\":\"Count\",\"data\":{\"from\":0,\"to\":15}}";
-
-			dynamic deserializeObject = JsonConvert.DeserializeObject(json);
-			string command = deserializeObject.type;
-			var data = deserializeObject.data;
-
-			if (command == "Count")
-			{
-				this.Frame.Navigate(typeof(HelloClassroom.IoT.Timer), null);
-				var from = data.from.Value;
-				var to = data.to.Value;
-				timerViewModel = new TimerViewModel(Convert.ToInt32(from), Convert.ToInt32(to), command);
-			}
 		}
-	}
+
+	    protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            string json = "{\"type\":\"Count\",\"data\":{\"from\":0,\"to\":15}}";
+
+            dynamic deserializeObject = JsonConvert.DeserializeObject(json);
+            string command = deserializeObject.type;
+            var data = deserializeObject.data;
+
+            if (command == "Count")
+            {
+                this.Frame.Navigate(typeof(HelloClassroom.IoT.Timer), null);
+                var from = data.from.Value;
+                var to = data.to.Value;
+                timerViewModel = new TimerViewModel(Convert.ToInt32(from), Convert.ToInt32(to), command);
+            }
+            Frame.Navigate(typeof(Location), "{}");
+            commandTimer = ThreadPoolTimer.CreatePeriodicTimer(timer => CheckIncomingCommand(), TimeSpan.FromSeconds(1));
+        }
+
+        private void CheckIncomingCommand()
+        {
+            string json = AzureIoTHub.ReceiveCloudToDeviceMessageAsync().Result;
+
+            dynamic deserializeObject = JsonConvert.DeserializeObject(json);
+            string command = deserializeObject.Type;
+
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                if (command.Equals("Timer"))
+                {
+                    Frame.Navigate(typeof(Timer), json);
+                }
+                else if (command.Equals("Count"))
+                {
+                    Frame.Navigate(typeof(Count), json);
+                }
+                else if (command.Equals("Location"))
+                {
+                    Frame.Navigate(typeof(Location), json);
+                }
+            }).GetResults();
+        }
+    }
 }

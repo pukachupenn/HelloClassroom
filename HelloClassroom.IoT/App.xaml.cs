@@ -65,22 +65,7 @@ namespace HelloClassroom.IoT
 					// parameter
 
 					string json = "{\"type\":\"Count\",\"data\":{\"from\":0,\"to\":15}}";
-
-					dynamic deserializeObject = JsonConvert.DeserializeObject(json);
-					string command = deserializeObject.type;
-
-	                if (command.Equals("Timer"))
-	                {
-		                rootFrame.Navigate(typeof (Timer), json);
-	                }
-	                else if (command.Equals("Count"))
-	                {
-						rootFrame.Navigate(typeof(Count), json);
-					}
-					else if (command.Equals("Location"))
-					{
-						rootFrame.Navigate(typeof(Location), json);
-					}
+                    rootFrame.Navigate(typeof(MainPage), json);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
