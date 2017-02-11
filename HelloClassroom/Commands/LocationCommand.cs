@@ -84,7 +84,7 @@ namespace HelloClassroom.Commands
 				}
 			}
 
-			locationData["Thumbnail"] = ImageUtils.ConvertImageUrlToBase64((string) entityObject.SelectToken("image.thumbnailUrl"));
+			locationData["Thumbnail"] = entityObject.SelectToken("image.thumbnailUrl");
 
 			return locationData;
 		}
